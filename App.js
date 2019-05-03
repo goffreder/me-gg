@@ -1,13 +1,20 @@
 import React, { Component } from 'react';
 import { StyleSheet, View } from 'react-native';
-import SummonerRecap from './src/home/SummonerRecap';
+import { createStore } from 'redux';
+import { Provider } from 'react-redux';
+
+import store from './src/store';
+
+import SummonerRecap from './src/home/components/SummonerRecap';
 
 export default class App extends Component {
     render() {
         return (
-            <View style={styles.container}>
-                <SummonerRecap />
-            </View>
+            <Provider store={store}>
+                <View style={styles.container}>
+                    <SummonerRecap />
+                </View>
+            </Provider>
         );
     }
 }
