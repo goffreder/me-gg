@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, Image } from 'react-native';
+import { View, Text, Image, StyleSheet } from 'react-native';
 import { string, number } from 'prop-types';
 import { connect } from 'react-redux';
 
@@ -9,6 +9,26 @@ import {
     getSummonerLevel,
     getSummonerIconId,
 } from '../modules/reducer';
+
+const styles = StyleSheet.create({
+    container: {
+        flexDirection: 'column',
+        justifyContent: 'space-evenly',
+        alignItems: 'center',
+        height: '100%',
+    },
+    icon: {
+        width: 200,
+        height: 200,
+        borderRadius: 100,
+    },
+    name: {
+        fontSize: 36,
+    },
+    level: {
+        fontSize: 24,
+    },
+});
 
 export class SummonerRecap extends Component {
     static propTypes = {
@@ -29,10 +49,10 @@ export class SummonerRecap extends Component {
         };
 
         return (
-            <View>
-                <Text>{this.props.name}</Text>
-                <Image source={icon} style={{ width: 193, height: 110 }} />
-                <Text>{`Level ${this.props.level}`}</Text>
+            <View style={styles.container}>
+                <Text style={styles.name}>{this.props.name}</Text>
+                <Image source={icon} style={styles.icon} />
+                <Text style={styles.level}>{`Level ${this.props.level}`}</Text>
             </View>
         );
     }
