@@ -5,14 +5,14 @@ import { Provider } from 'react-redux';
 
 import store from './src/store';
 
-import SummonerRecap from './src/home/components/SummonerRecap';
+import Home from './src/home/components/Home';
 
 export default class App extends Component {
     render() {
         return (
             <Provider store={store}>
                 <View style={styles.container}>
-                    <SummonerRecap />
+                    <Home />
                 </View>
             </Provider>
         );
