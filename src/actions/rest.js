@@ -1,7 +1,11 @@
 import { RSAA } from 'redux-api-middleware';
 import { API_KEY } from '../constants';
 
-import { setSummonerInfo, setSummonerLastMatches } from './home';
+import {
+    setSummonerInfo,
+    setSummonerRankedInfo,
+    setSummonerLastMatches,
+} from './home';
 
 export const fetchSummonerInfo = name => async dispatch => {
     const fetchAction = {
@@ -20,7 +24,7 @@ export const fetchSummonerInfo = name => async dispatch => {
     };
 
     const {
-        payload: { profileIconId: iconId, summonerLevel: level, accountId },
+        payload: { id, profileIconId: iconId, summonerLevel: level, accountId },
         error,
     } = await dispatch(fetchAction);
 
@@ -30,11 +34,47 @@ export const fetchSummonerInfo = name => async dispatch => {
 
     dispatch(
         setSummonerInfo({
+            id,
             iconId,
             level,
             accountId,
         }),
     );
+};
+
+export const fetchSummonerRankedInfo = id => async dispatch => {
+    const fetchAction = {
+        [RSAA]: {
+            endpoint: `https://euw1.api.riotgames.com/lol/league/v4/entries/by-summoner/${id}?api_key=${API_KEY}`,
+            method: 'GET',
+            types: [
+                'FETCH_SUMMONER_RANKED_INFO_REQUEST',
+                {
+                    type: 'FETCH_SUMMONER_RANKED_INFO_SUCCESS',
+                    payload: (action, state, res) => res.json(),
+                },
+                'FETCH_SUMMONER_RANKED_INFO_FAILURE',
+            ],
+        },
+    };
+
+    const { payload: queues, error } = await dispatch(fetchAction);
+
+    if (error) {
+        return;
+    }
+
+    const queue = queues
+        .filter(q => q.queueType === 'RANKED_SOLO_5x5')
+        .map(q => ({
+            rank: q.rank,
+            tier: q.tier,
+            lp: q.leaguePoints,
+            wins: q.wins,
+            losses: q.losses,
+        }));
+
+    dispatch(setSummonerRankedInfo(queue[0]));
 };
 
 export const fetchSummonerLastMatches = accountId => async dispatch => {

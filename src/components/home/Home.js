@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { View, StyleSheet } from 'react-native';
 
 import SummonerRecap from './SummonerRecap';
+import RankedRecap from './RankedRecap';
 import MatchesRecap from './MatchesRecap';
 
 const styles = StyleSheet.create({
@@ -18,6 +19,7 @@ export default class Home extends Component {
         return (
             <View style={styles.container}>
                 <SummonerRecap />
+                <RankedRecap />
                 <MatchesRecap />
             </View>
         );
