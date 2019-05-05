@@ -21,7 +21,7 @@ export class MatchesRecap extends Component {
     render() {
         return this.props.lastMatches.length ? (
             <View>
-                <Text>{'Last games:'}</Text>
+                <Text>{'Last ranked games:'}</Text>
                 {this.props.lastMatches.map(m => (
                     <Match key={m.id} {...m} />
                 ))}

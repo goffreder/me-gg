@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { View, Image, Text, StyleSheet } from 'react-native';
 import { number } from 'prop-types';
+import distanceInWordsToNow from 'date-fns/distance_in_words_to_now';
 
 const styles = StyleSheet.create({
     icon: {
@@ -27,7 +28,9 @@ export default class Match extends Component {
         return (
             <View>
                 <Image source={icon} style={styles.icon} />
-                <Text>{this.props.timestamp}</Text>
+                <Text>{`${distanceInWordsToNow(
+                    new Date(this.props.timestamp),
+                )} ago`}</Text>
             </View>
         );
     }

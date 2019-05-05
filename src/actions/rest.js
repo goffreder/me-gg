@@ -1,11 +1,12 @@
 import { RSAA } from 'redux-api-middleware';
+import { API_KEY } from '../constants';
 
 import { setSummonerInfo, setSummonerLastMatches } from './home';
 
 export const fetchSummonerInfo = name => async dispatch => {
     const fetchAction = {
         [RSAA]: {
-            endpoint: `https://euw1.api.riotgames.com/lol/summoner/v4/summoners/by-name/${name}?api_key=RGAPI-30fd829e-6a85-4f6a-a846-ba5d26446b69`,
+            endpoint: `https://euw1.api.riotgames.com/lol/summoner/v4/summoners/by-name/${name}?api_key=${API_KEY}`,
             method: 'GET',
             types: [
                 'FETCH_SUMMONER_INFO_REQUEST',
@@ -39,7 +40,7 @@ export const fetchSummonerInfo = name => async dispatch => {
 export const fetchSummonerLastMatches = accountId => async dispatch => {
     const fetchAction = {
         [RSAA]: {
-            endpoint: `https://euw1.api.riotgames.com/lol/match/v4/matchlists/by-account/${accountId}?queue=420&endIndex=3&api_key=RGAPI-30fd829e-6a85-4f6a-a846-ba5d26446b69`,
+            endpoint: `https://euw1.api.riotgames.com/lol/match/v4/matchlists/by-account/${accountId}?queue=420&endIndex=3&api_key=${API_KEY}`,
             method: 'GET',
             types: [
                 'FETCH_SUMMONER_LAST_MATCHES_REQUEST',
