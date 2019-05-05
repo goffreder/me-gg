@@ -1,19 +1,30 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { View, Text } from 'react-native';
-import { array } from 'prop-types';
+import { arrayOf, shape, number } from 'prop-types';
 
-import { getSummonerLastMatches } from '../modules/reducer';
+import { getSummonerLastMatches } from '../../reducers/home';
+
+import Match from './Match';
 
 export class MatchesRecap extends Component {
     static propTypes = {
-        lastMatches: array.isRequired,
+        lastMatches: arrayOf(
+            shape({
+                id: number.isRequired,
+                championId: number.isRequired,
+                timestamp: number.isRequired,
+            }),
+        ).isRequired,
     };
 
     render() {
-        return this.props.lastMatches.count ? (
+        return this.props.lastMatches.length ? (
             <View>
-                <Text>{'Last summoner matches'}</Text>
+                <Text>{'Last games:'}</Text>
+                {this.props.lastMatches.map(m => (
+                    <Match key={m.id} {...m} />
+                ))}
             </View>
         ) : (
             <View>

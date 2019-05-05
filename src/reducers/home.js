@@ -1,5 +1,5 @@
 export const defaultState = {
-    summoner: { level: 0, iconId: 0, name: 'goffreder', accountId: 0 },
+    summoner: { level: 0, iconId: 0, name: 'goffreder', accountId: '' },
     lastMatches: [],
 };
 
@@ -10,6 +10,10 @@ const handlers = {
             ...state.summoner,
             ...payload,
         },
+    }),
+    SET_SUMMONER_LAST_MATCHES: (state, { payload }) => ({
+        ...state,
+        lastMatches: [...payload],
     }),
 };
 

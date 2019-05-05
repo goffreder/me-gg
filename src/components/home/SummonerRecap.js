@@ -3,12 +3,16 @@ import { Text, Image, StyleSheet } from 'react-native';
 import { string, number } from 'prop-types';
 import { connect } from 'react-redux';
 
-import { fetchSummonerInfo } from '../../rest/actions';
+import {
+    fetchSummonerInfo,
+    fetchSummonerLastMatches,
+} from '../../actions/rest';
 import {
     getSummonerName,
     getSummonerLevel,
     getSummonerIconId,
-} from '../modules/reducer';
+    getSummonerAccountId,
+} from '../../reducers/home';
 
 const styles = StyleSheet.create({
     icon: {
@@ -29,10 +33,17 @@ export class SummonerRecap extends Component {
         name: string.isRequired,
         iconId: number.isRequired,
         level: number.isRequired,
+        accountId: string.isRequired,
     };
 
     componentDidMount() {
         this.props.fetchSummonerInfo(this.props.name);
+    }
+
+    componentDidUpdate() {
+        if (this.props.accountId !== '') {
+            this.props.fetchSummonerLastMatches(this.props.accountId);
+        }
     }
 
     render() {
@@ -56,10 +67,12 @@ const mapStateToProps = state => ({
     name: getSummonerName(state),
     level: getSummonerLevel(state),
     iconId: getSummonerIconId(state),
+    accountId: getSummonerAccountId(state),
 });
 
 export const mapDispatchToProps = {
     fetchSummonerInfo,
+    fetchSummonerLastMatches,
 };
 
 export default connect(
