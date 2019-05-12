@@ -36,8 +36,6 @@ class HomeScreen extends Component {
         headerTitleStyle: {
             fontWeight: 'normal',
             fontSize: 16,
-            width: '100%',
-            textAlign: 'center',
         },
         headerRight: (
             <HeaderButtons HeaderButtonComponent={IoniconsHeaderButton}>
@@ -61,10 +59,13 @@ class HomeScreen extends Component {
     }
 }
 
-const AppNavigator = createStackNavigator({
-    Home: {
-        screen: HomeScreen,
+const AppNavigator = createStackNavigator(
+    {
+        Home: {
+            screen: HomeScreen,
+        },
     },
-});
+    { headerLayoutPreset: 'center' },
+);
 
 export default createAppContainer(AppNavigator);
