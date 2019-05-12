@@ -1,2 +1,2 @@
-export const API_KEY = 'RGAPI-7db1163c-640c-4265-a0e1-b1cce0162970';
+export const API_KEY = 'RGAPI-dc81de86-0d9a-4d90-b0e9-d439eccdc146';
 // const ACCOUNT_ID = 'p1n2IsC656M1gwCaLIVRrvChCOZoNX7chpN7h_bMWmWVR_M';
