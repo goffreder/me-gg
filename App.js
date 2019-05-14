@@ -2,15 +2,12 @@ import React, { Component } from 'react';
 import { View, StyleSheet } from 'react-native';
 import { createStackNavigator, createAppContainer } from 'react-navigation';
 import { Provider } from 'react-redux';
-import HeaderButtons, {
-    HeaderButton,
-    Item,
-} from 'react-navigation-header-buttons';
-import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import store from './src/store';
 
 import Home from './src/components/home/Home';
+
+import RegionPicker from './src/components/RegionPicker';
 
 const styles = StyleSheet.create({
     container: {
@@ -20,15 +17,6 @@ const styles = StyleSheet.create({
     },
 });
 
-const IoniconsHeaderButton = props => (
-    <HeaderButton
-        {...props}
-        IconComponent={Ionicons}
-        iconSize={23}
-        color="#52595f"
-    />
-);
-
 class HomeScreen extends Component {
     static navigationOptions = {
         title: 'League of Legends',
@@ -37,15 +25,7 @@ class HomeScreen extends Component {
             fontWeight: 'normal',
             fontSize: 16,
         },
-        headerRight: (
-            <HeaderButtons HeaderButtonComponent={IoniconsHeaderButton}>
-                <Item
-                    title="servers"
-                    iconName="md-globe"
-                    onPress={() => alert('servers')}
-                />
-            </HeaderButtons>
-        ),
+        headerRight: <RegionPicker />,
     };
 
     render() {
